@@ -30,7 +30,7 @@
 
         function searchGif(searchterm) { 
             return new Promise((resolve, reject) => {
-                resolve(fetch(`https://api.giphy.com/v1/gifs/translate?api_key=NulVuLdZWxBTHYbHbYiv4atmwqTsZYSl&s=${searchterm}`, {mode: 'cors'}))
+                resolve(fetch(`https://api.giphy.com/v1/gifs/translate?api_key=NulVuLdZWxBTHYbHbYiv4atmwqTsZYSl&s=${searchterm + ' cat}`, {mode: 'cors'}))
             })
         }
 
