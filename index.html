@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giphy API practice</title>
+</head>
+<body>
+    <div class='container'>
+        <img src="#">
+    </div>
+    <nav>
+        <button id='refresh'>Bring me more cats!</button>
+        <input type='search' id='search' placeholder="Enter a search term...">
+        <button id="searchBtn">Search</button>
+    </nav>
+    
+    <script>
+        const img = document.querySelector('img');
+        const refreshBtn = document.querySelector('#refresh')
+        refreshBtn.addEventListener('click', () => loadGif('cats'))
+
+        const searchBar = document.querySelector('#search');
+        const searchBtn = document.querySelector('#searchBtn')
+
+        searchBtn.addEventListener('click', () => loadGif(searchBar.value))
+
+        loadGif('cats');
+
+        function searchGif(searchterm) { 
+            return new Promise((resolve, reject) => {
+                resolve(fetch(`https://api.giphy.com/v1/gifs/translate?api_key=NulVuLdZWxBTHYbHbYiv4atmwqTsZYSl&s=${searchterm}`, {mode: 'cors'}))
+            })
+        }
+
+        
+        function loadGif(searchterm) {
+            searchGif(searchterm)
+                .then(function(response) {
+                return response.json()
+                })
+                .then(function(response) {
+                img.src = response.data.images.original.url
+                })
+                .catch(err => console.log(error))
+        }
+    </script>
+    <style>
+        body {
+            display:flex;
+            flex-direction:column;
+            background-image: url('./382677.jpg');
+        }
+        .container { 
+            height:300px;
+            width: auto;
+            display:flex;
+            justify-content: center;
+            
+        }
+
+        img { 
+            height:inherit;
+            outline: 4px rgba(248, 134, 134, 0.637) solid
+        }
+        nav { 
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin:10px;
+            gap:10px;
+        }
+        button { 
+            height:30%;
+            width:auto;
+            background-color: rgb(248, 197, 197);
+            border-radius: 10%;
+            font-size:120%;
+            box-shadow: 3px 3px  black ;
+            transition: 0.4s;
+        }
+        button:hover { 
+            background-color: pink;
+            transform: scale(1.1);
+        }
+        input[type='search'] {
+            width: 50%;
+            height:auto;
+        }
+    </style>
+</body>
+</html>
